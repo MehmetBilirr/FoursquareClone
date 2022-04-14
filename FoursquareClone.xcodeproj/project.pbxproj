@@ -15,6 +15,8 @@
 		F095C05628086218002D5801 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F095C05528086218002D5801 /* Assets.xcassets */; };
 		F095C05928086218002D5801 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F095C05728086218002D5801 /* LaunchScreen.storyboard */; };
 		F095C061280862FA002D5801 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F095C060280862FA002D5801 /* GoogleService-Info.plist */; };
+		F095C06328086907002D5801 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F095C06228086907002D5801 /* ListViewController.swift */; };
+		F095C0652808691F002D5801 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F095C0642808691F002D5801 /* DetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		F095C05828086218002D5801 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F095C05A28086218002D5801 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F095C060280862FA002D5801 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F095C06228086907002D5801 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
+		F095C0642808691F002D5801 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,7 +54,6 @@
 				EB807F013511B104143C4547 /* Pods-FoursquareClone.debug.xcconfig */,
 				C4B57A66568CB6409389AE38 /* Pods-FoursquareClone.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -86,6 +89,8 @@
 				F095C04C28086217002D5801 /* AppDelegate.swift */,
 				F095C04E28086217002D5801 /* SceneDelegate.swift */,
 				F095C05028086217002D5801 /* ViewController.swift */,
+				F095C06228086907002D5801 /* ListViewController.swift */,
+				F095C0642808691F002D5801 /* DetailsViewController.swift */,
 				F095C05228086217002D5801 /* Main.storyboard */,
 				F095C05528086218002D5801 /* Assets.xcassets */,
 				F095C05728086218002D5801 /* LaunchScreen.storyboard */,
@@ -213,7 +218,9 @@
 			files = (
 				F095C05128086217002D5801 /* ViewController.swift in Sources */,
 				F095C04D28086217002D5801 /* AppDelegate.swift in Sources */,
+				F095C06328086907002D5801 /* ListViewController.swift in Sources */,
 				F095C04F28086217002D5801 /* SceneDelegate.swift in Sources */,
+				F095C0652808691F002D5801 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
