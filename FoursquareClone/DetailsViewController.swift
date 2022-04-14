@@ -7,6 +7,8 @@
 
 import UIKit
 import MapKit
+import Firebase
+import SDWebImage
 class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate {
     
     
@@ -79,8 +81,56 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
     
     
     @IBAction func saveButtonClicked(_ sender: Any) {
+        
+        
+        let storage = Storage.storage()
+        let storageReference = storage.reference()
+        let mediaFolder = storageReference.child("media")
+        if let data = imageView.image?.jpegData(compressionQuality: 0.5) {
+            let uuid = UUID().uuidString
+            let imageFolder = mediaFolder.child("\(uuid).jpg")
+            imageFolder.putData(data, metadata: nil) { metadata, error in
+                if error != nil {
+                    self.alert(titleId: "Error", messageId: error?.localizedDescription ?? "Error")
+                    
+                }else {
+                    imageFolder.downloadURL { url, error in
+                        if error != nil {
+                            self.alert(titleId: "Error!", messageId: error?.localizedDescription ?? "Error")
+                        }else {
+                            let imageUrl = url?.absoluteString
+                            
+                            let firestore = Firestore.firestore()
+                            let firestorePost = ["name" : self.placeNameText.text,"comment" : self.commentText.text, "type" : self.placeTypeText.text, "imageUrl" : imageUrl,"latitude" : self.chosenLatitude,"longitude" : self.chosenLongitude] as [String:Any]
+                            
+                            let firestoreFolder = firestore.collection("Places").addDocument(data: firestorePost) { error in
+                                if error != nil {
+                                    self.alert(titleId: "Error", messageId: error?.localizedDescription ?? "Error")
+                                }else {
+                                    self.navigationController?.popViewController(animated: true)
+                                }
+                            }
+                            
+                            
+                        }
+                    }
+                }
+            }
+            
+            
+        }
+        
+        
     }
     
+    
+    
+    func alert(titleId:String,messageId:String){
+        let alert = UIAlertController(title: titleId, message: messageId, preferredStyle: UIAlertController.Style.alert)
+        let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.cancel)
+        alert.addAction(okButton)
+        self.present(alert, animated: true)
+    }
     
     
     
