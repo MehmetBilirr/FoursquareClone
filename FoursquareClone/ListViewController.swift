@@ -6,25 +6,41 @@
 //
 
 import UIKit
+import Firebase
 
-class ListViewController: UIViewController {
-
+class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+    
+    var selectedName = ""
     @IBOutlet weak var tableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        tableView.delegate = self
+        tableView.dataSource = self
+        navigationController?.navigationBar.topItem?.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(addButtonClicked))
+
+        navigationController?.navigationBar.topItem?.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: UIBarButtonItem.Style.done, target: self, action: #selector(logOut))
+    }
+    
+    @objc func logOut(){
+        
+        do {
+            try Auth.auth().signOut()
+            performSegue(withIdentifier: "toLoginVC", sender: nil)
+        }catch{
+            print("error")
+        }
+        
+    }
+    
+    @objc func addButtonClicked(){
+        selectedName = ""
+        
+        performSegue(withIdentifier: "toDetailsVC", sender: nil)
+        
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
 
 }
