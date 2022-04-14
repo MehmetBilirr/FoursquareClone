@@ -111,17 +111,43 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            
+            let firestoreData = Firestore.firestore()
+            firestoreData.collection("Places").addSnapshotListener { snapshot, error in
+                if error != nil {
+                    self.alert(titleId: "Error!", messageId: error?.localizedDescription ?? "Error")
+                }else {
+                    if snapshot?.isEmpty != true && snapshot != nil {
+                        
+                        for document in snapshot!.documents {
+                            if let id = document.documentID as? String {
+                                if id == self.documentIdArray[indexPath.row] {
+                                    firestoreData.collection("Places").document(self.documentIdArray[indexPath.row]).delete { error in
+                                        if error != nil {
+                                            self.alert(titleId: "Error!", messageId: error?.localizedDescription ??  "Error")
+                                        }else {
+                                            self.documentIdArray.remove(at: indexPath.row)
+                                            self.placeNameArray.remove(at: indexPath.row)
+                                            self.tableView.reloadData()
+                                            
+                                        }
+                                    }
+                                
+                                
+                                }
+                                
+                            }
+                            
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     
     func alert(titleId:String,messageId:String){
         let alert = UIAlertController(title: titleId, message: messageId, preferredStyle: UIAlertController.Style.alert)
