@@ -10,6 +10,7 @@ import Firebase
 
 class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
+    var selectedId = ""
     var selectedName = ""
     var documentIdArray = [String]()
     var placeNameArray = [String]()
@@ -42,6 +43,23 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
         
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedName = placeNameArray[indexPath.row]
+        selectedId = documentIdArray[indexPath.row]
+        print(selectedId)
+        performSegue(withIdentifier: "toDetailsVC", sender: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = placeNameArray[indexPath.row]
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return placeNameArray.count
     }
     
     func getDataFromFirestore(){
