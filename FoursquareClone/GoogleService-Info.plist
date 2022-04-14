@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>346359257588-vf176hrsfueipif4tufrujkbsc4h9sk7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.346359257588-vf176hrsfueipif4tufrujkbsc4h9sk7</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAqAul8iCA_q18VRSWdXDR3W4yBiJwLcnQ</string>
+	<key>GCM_SENDER_ID</key>
+	<string>346359257588</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.mehmetbilir.FoursquareClone</string>
+	<key>PROJECT_ID</key>
+	<string>foursquareclone-9f512</string>
+	<key>STORAGE_BUCKET</key>
+	<string>foursquareclone-9f512.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:346359257588:ios:14e529127a031c6ac281a1</string>
+</dict>
+</plist>
