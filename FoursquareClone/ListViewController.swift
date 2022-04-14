@@ -103,6 +103,15 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailsVC" {
+            let destinationVC = segue.destination as! DetailsViewController
+            destinationVC.selectedId = selectedId
+            destinationVC.selectedName = selectedName
+        }
+    }
+    
+    
     
     
     

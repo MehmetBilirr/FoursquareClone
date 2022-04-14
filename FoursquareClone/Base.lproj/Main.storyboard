@@ -129,33 +129,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="upload" translatesAutoresizingMaskIntoConstraints="NO" id="Zba-O5-vK0">
-                                <rect key="frame" x="63" y="100" width="291" height="151"/>
+                                <rect key="frame" x="63" y="100" width="258.5" height="151"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="151" id="6ST-LC-8Ag"/>
-                                    <constraint firstAttribute="width" constant="290" id="FVz-Fv-TMY"/>
+                                    <constraint firstAttribute="width" constant="258.5" id="FVz-Fv-TMY"/>
                                     <constraint firstAttribute="height" constant="151" id="nsU-NH-t1h"/>
                                 </constraints>
                             </imageView>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="place name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-Z0-d0N">
-                                <rect key="frame" x="63" y="313" width="289" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="place name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NW2-Z0-d0N">
+                                <rect key="frame" x="63" y="313" width="257.5" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="place type" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yGG-Bc-f9Y">
-                                <rect key="frame" x="63" y="388" width="289" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="place type" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yGG-Bc-f9Y">
+                                <rect key="frame" x="63" y="388" width="257.5" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comment" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e8L-q2-cks">
-                                <rect key="frame" x="63" y="461" width="289" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="comment" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e8L-q2-cks">
+                                <rect key="frame" x="63" y="461" width="257.5" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8fp-nd-YVg">
-                                <rect key="frame" x="20" y="529" width="376" height="286"/>
+                                <rect key="frame" x="20" y="529" width="343.5" height="286"/>
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Me-qh-xXD">
-                                <rect key="frame" x="180" y="831" width="56" height="31"/>
+                                <rect key="frame" x="149" y="831" width="87" height="31"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Save"/>
                                 <connections>
@@ -168,9 +168,9 @@
                         <constraints>
                             <constraint firstItem="9Me-qh-xXD" firstAttribute="bottom" secondItem="Bes-XX-2L8" secondAttribute="bottom" id="0RT-gT-UcI"/>
                             <constraint firstItem="NW2-Z0-d0N" firstAttribute="trailing" secondItem="yGG-Bc-f9Y" secondAttribute="trailing" id="2Ma-Ut-1NS"/>
-                            <constraint firstItem="e8L-q2-cks" firstAttribute="centerX" secondItem="9Me-qh-xXD" secondAttribute="centerX" id="8R8-4e-NRG"/>
+                            <constraint firstItem="e8L-q2-cks" firstAttribute="centerX" secondItem="9Me-qh-xXD" secondAttribute="centerX" constant="-0.75" id="8R8-4e-NRG"/>
                             <constraint firstItem="NW2-Z0-d0N" firstAttribute="leading" secondItem="yGG-Bc-f9Y" secondAttribute="leading" id="ECW-jd-odK"/>
-                            <constraint firstItem="8fp-nd-YVg" firstAttribute="trailing" secondItem="aHh-a9-R1v" secondAttribute="trailingMargin" constant="2" id="MIH-Ml-zpM"/>
+                            <constraint firstItem="8fp-nd-YVg" firstAttribute="trailing" secondItem="aHh-a9-R1v" secondAttribute="trailingMargin" constant="-30.5" id="MIH-Ml-zpM"/>
                             <constraint firstItem="8fp-nd-YVg" firstAttribute="leading" secondItem="aHh-a9-R1v" secondAttribute="leadingMargin" id="NE5-fs-U2I"/>
                             <constraint firstItem="e8L-q2-cks" firstAttribute="top" secondItem="yGG-Bc-f9Y" secondAttribute="bottom" constant="39" id="OCa-fs-ZTE"/>
                             <constraint firstItem="e8L-q2-cks" firstAttribute="centerX" secondItem="8fp-nd-YVg" secondAttribute="centerX" id="OXq-0b-W8r"/>
@@ -182,7 +182,7 @@
                             <constraint firstItem="Zba-O5-vK0" firstAttribute="trailing" secondItem="NW2-Z0-d0N" secondAttribute="trailing" constant="1" id="kbk-6w-HSM"/>
                             <constraint firstItem="8fp-nd-YVg" firstAttribute="top" secondItem="e8L-q2-cks" secondAttribute="bottom" constant="34" id="nBM-6g-PCL"/>
                             <constraint firstItem="NW2-Z0-d0N" firstAttribute="top" secondItem="Zba-O5-vK0" secondAttribute="bottom" constant="62" id="ohX-rg-3XZ"/>
-                            <constraint firstItem="9Me-qh-xXD" firstAttribute="leading" secondItem="Bes-XX-2L8" secondAttribute="leading" constant="180" id="rjW-vn-Pf0"/>
+                            <constraint firstItem="9Me-qh-xXD" firstAttribute="leading" secondItem="Bes-XX-2L8" secondAttribute="leading" constant="149" id="rjW-vn-Pf0"/>
                             <constraint firstItem="yGG-Bc-f9Y" firstAttribute="top" secondItem="NW2-Z0-d0N" secondAttribute="bottom" constant="41" id="tES-wG-URN"/>
                             <constraint firstItem="Zba-O5-vK0" firstAttribute="leading" secondItem="NW2-Z0-d0N" secondAttribute="leading" id="yie-Vg-wE8"/>
                         </constraints>

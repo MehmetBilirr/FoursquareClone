@@ -21,6 +21,7 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
     @IBOutlet weak var placeNameText: UITextField!
     @IBOutlet weak var mapView: MKMapView!
     var selectedName = ""
+    var selectedId = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -38,6 +39,56 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(chooseLocation(gestureRecognizer:)))
         gestureRecognizer.minimumPressDuration = 3
         mapView.addGestureRecognizer(gestureRecognizer)
+        
+        if selectedName != "" {
+
+            
+            let firestoreData = Firestore.firestore()
+            firestoreData.collection("Places").addSnapshotListener { snapshot, error in
+                if error != nil {
+                    self.alert(titleId: "Error!", messageId: error?.localizedDescription ?? "Error")
+                }else {
+                   if snapshot?.isEmpty != true && snapshot != nil {
+                        
+                        for document in snapshot!.documents {
+                            if self.selectedId == document.documentID {
+                            
+                            if let name = document.get("name") as? String {
+                                self.placeNameText.text = name
+                            }
+                            if let comment = document.get("comment") as? String {
+                                self.commentText.text = comment
+                            }
+                            if let placeType = document.get("type") as? String {
+                                self.placeTypeText.text = placeType
+                            }
+                            if let latitude = document.get("latitude") as? Double {
+                                self.chosenLatitude = latitude
+                            }
+                            if let longitude = document.get("longitude") as? Double {
+                                self.chosenLongitude = longitude
+                            }
+                            if let imageUrl = document.get("imageUrl") as? String   {
+                                self.imageView.sd_setImage(with: URL(string: imageUrl))
+                            }
+                                let annotaion = MKPointAnnotation()
+                                let coordinate = CLLocationCoordinate2D(latitude: self.chosenLatitude, longitude: self.chosenLongitude)
+                                annotaion.coordinate = coordinate
+                                self.mapView.addAnnotation(annotaion)
+                                self.locationManager.stopUpdatingLocation()
+                                let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                                let region = MKCoordinateRegion(center: coordinate, span: span)
+                                self.mapView.setRegion(region, animated: true)
+                                }
+                            
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+        
         
     }
     
