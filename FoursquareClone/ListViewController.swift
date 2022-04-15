@@ -27,6 +27,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         getDataFromFirestore()
     }
     
+    
    
     
     @objc func logOut(){
@@ -50,6 +51,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedName = placeNameArray[indexPath.row]
         selectedId = documentIdArray[indexPath.row]
+        print(documentIdArray[indexPath.row])
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
     
@@ -92,7 +94,11 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         
                         
                         
+                        
                     }
+                    
+                    
+                    
                     
                     
                     
@@ -120,8 +126,9 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
+            
             let firestoreData = Firestore.firestore()
-            firestoreData.collection("Places").order(by: "date", descending: false).addSnapshotListener { snapshot, error in
+            firestoreData.collection("Places").addSnapshotListener { snapshot, error in
                 if error != nil {
                     self.alert(titleId: "Error!", messageId: error?.localizedDescription ?? "Error")
                 }else {
@@ -130,15 +137,15 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                         for document in snapshot!.documents {
                             
                                 
-                            if document.documentID == self.documentIdArray[indexPath.row] {
+                            if self.documentIdArray[indexPath.row] == document.documentID {
+                                
+                                
+                                
                                     firestoreData.collection("Places").document(self.documentIdArray[indexPath.row]).delete { error in
                                         if error != nil {
                                             self.alert(titleId: "Error!", messageId: error?.localizedDescription ??  "Error")
                                         }else {
                                             
-                                            self.placeNameArray.remove(at: indexPath.row)
-                                            
-                                            self.documentIdArray.remove(at: indexPath.row)
                                             
                                             self.tableView.reloadData()
                                             

@@ -75,6 +75,8 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
                                 let annotaion = MKPointAnnotation()
                                 let coordinate = CLLocationCoordinate2D(latitude: self.chosenLatitude, longitude: self.chosenLongitude)
                                 annotaion.coordinate = coordinate
+                                annotaion.title = self.placeNameText.text
+                                annotaion.subtitle = self.commentText.text
                                 self.mapView.addAnnotation(annotaion)
                                 self.locationManager.stopUpdatingLocation()
                                 let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
@@ -101,6 +103,8 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
             chosenLatitude = touchedCoordinates.latitude
             chosenLongitude = touchedCoordinates.longitude
             let annotation = MKPointAnnotation()
+            annotation.title = placeNameText.text
+            annotation.subtitle = commentText.text
             annotation.coordinate = touchedCoordinates
             self.mapView.addAnnotation(annotation)
             
@@ -199,9 +203,9 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
                                 if error != nil {
                                     self.alert(titleId: "Error", messageId: error?.localizedDescription ?? "Error")
                                 }else {
-                                    firestore.collection("Places").order(by: "date", descending: true)
+                                    
                                     self.navigationController?.popViewController(animated: true)
-                                    NotificationCenter.default.post(name: NSNotification.Name("newData"), object: nil)
+                                    
                                     
                                 }
                             }
