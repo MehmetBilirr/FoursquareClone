@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import Firebase
 import SDWebImage
+import CoreLocation
 class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,CLLocationManagerDelegate {
     
     
@@ -130,6 +131,46 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
         }
     }
     
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        if annotation is MKUserLocation {
+            return nil
+        }
+        
+        let reuseId = "myAnnotation"
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView?.canShowCallout = true
+            pinView?.tintColor = UIColor.black
+            
+            let button = UIButton(type: UIButton.ButtonType.detailDisclosure)
+            pinView?.rightCalloutAccessoryView = button
+            
+        }else {
+            pinView?.annotation = annotation
+        }
+        return pinView
+    }
+    
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if selectedName != "" {
+            let newRequestLocation = CLLocation(latitude: chosenLatitude, longitude: chosenLongitude)
+            CLGeocoder().reverseGeocodeLocation(newRequestLocation) { placemarks, error in
+                if let placemark = placemarks {
+                    if placemark.count > 0 {
+                        let newPlacemark = MKPlacemark(placemark: placemark[0])
+                        let item = MKMapItem(placemark: newPlacemark)
+                        let launchOptions = [MKLaunchOptionsDirectionsModeKey:MKLaunchOptionsDirectionsModeDriving]
+                        item.openInMaps(launchOptions: launchOptions)
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
     
     @IBAction func saveButtonClicked(_ sender: Any) {
         
@@ -152,13 +193,16 @@ class DetailsViewController: UIViewController, MKMapViewDelegate,UIImagePickerCo
                             let imageUrl = url?.absoluteString
                             
                             let firestore = Firestore.firestore()
-                            let firestorePost = ["name" : self.placeNameText.text,"comment" : self.commentText.text, "type" : self.placeTypeText.text, "imageUrl" : imageUrl,"latitude" : self.chosenLatitude,"longitude" : self.chosenLongitude] as [String:Any]
+                            let firestorePost = ["name" : self.placeNameText.text,"comment" : self.commentText.text, "type" : self.placeTypeText.text, "imageUrl" : imageUrl,"latitude" : self.chosenLatitude,"longitude" : self.chosenLongitude,"date" : FieldValue.serverTimestamp()] as [String:Any]
                             
                             let firestoreFolder = firestore.collection("Places").addDocument(data: firestorePost) { error in
                                 if error != nil {
                                     self.alert(titleId: "Error", messageId: error?.localizedDescription ?? "Error")
                                 }else {
+                                    firestore.collection("Places").order(by: "date", descending: true)
                                     self.navigationController?.popViewController(animated: true)
+                                    NotificationCenter.default.post(name: NSNotification.Name("newData"), object: nil)
+                                    
                                 }
                             }
                             

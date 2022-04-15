@@ -27,6 +27,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         getDataFromFirestore()
     }
     
+   
+    
     @objc func logOut(){
         
         do {
@@ -48,7 +50,6 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedName = placeNameArray[indexPath.row]
         selectedId = documentIdArray[indexPath.row]
-        print(selectedId)
         performSegue(withIdentifier: "toDetailsVC", sender: nil)
     }
     
@@ -62,33 +63,38 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         return placeNameArray.count
     }
     
-    func getDataFromFirestore(){
+    @objc func getDataFromFirestore(){
         
         let firestoreData = Firestore.firestore()
-        firestoreData.collection("Places").addSnapshotListener { snapshot, error in
+        firestoreData.collection("Places").order(by: "date", descending: false).addSnapshotListener { snapshot, error in
             if error != nil {
                 self.alert(titleId: "Error!", messageId: error?.localizedDescription ?? "Error!")
             }else {
                 if snapshot?.isEmpty != true && snapshot != nil {
                     
-                    
-                    self.documentIdArray.removeAll(keepingCapacity: false)
                     self.placeNameArray.removeAll(keepingCapacity: false)
+                    self.documentIdArray.removeAll(keepingCapacity: false)
+                    
                     
                     for document in snapshot!.documents {
-                        
-                        let documentId = document.documentID
-                        
-                        self.documentIdArray.append(documentId)
-                        
-                        
                         
                         if let placeName = document.get("name") as? String {
                             self.placeNameArray.append(placeName)
                            
                         }
+                        
+                        if  let documentId = document.documentID as? String {
+                            self.documentIdArray.append(documentId)
+                        }
+                        
+                        self.tableView.reloadData()
+                        
+                        
+                        
+                        
                     }
-                    self.tableView.reloadData()
+                    
+                    
                     
                     
                 }
@@ -106,8 +112,8 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailsVC" {
             let destinationVC = segue.destination as! DetailsViewController
-            destinationVC.selectedId = selectedId
             destinationVC.selectedName = selectedName
+            destinationVC.selectedId = selectedId
         }
     }
     
@@ -115,22 +121,27 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
         if editingStyle == .delete {
             
             let firestoreData = Firestore.firestore()
-            firestoreData.collection("Places").addSnapshotListener { snapshot, error in
+            firestoreData.collection("Places").order(by: "date", descending: false).addSnapshotListener { snapshot, error in
                 if error != nil {
                     self.alert(titleId: "Error!", messageId: error?.localizedDescription ?? "Error")
                 }else {
                     if snapshot?.isEmpty != true && snapshot != nil {
                         
                         for document in snapshot!.documents {
-                            if let id = document.documentID as? String {
-                                if id == self.documentIdArray[indexPath.row] {
+                            
+                                
+                            if document.documentID == self.documentIdArray[indexPath.row] {
                                     firestoreData.collection("Places").document(self.documentIdArray[indexPath.row]).delete { error in
                                         if error != nil {
                                             self.alert(titleId: "Error!", messageId: error?.localizedDescription ??  "Error")
                                         }else {
-                                            self.documentIdArray.remove(at: indexPath.row)
+                                            
                                             self.placeNameArray.remove(at: indexPath.row)
+                                            
+                                            self.documentIdArray.remove(at: indexPath.row)
+                                            
                                             self.tableView.reloadData()
+                                            
                                             
                                         }
                                     }
@@ -138,7 +149,7 @@ class ListViewController: UIViewController,UITableViewDelegate,UITableViewDataSo
                                 
                                 }
                                 
-                            }
+                            
                             
                             
                         }
